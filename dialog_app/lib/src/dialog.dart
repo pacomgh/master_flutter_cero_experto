@@ -12,13 +12,13 @@ enum DialogAction{
 }
 
 class _MyDialogState extends State<MyDialog> {
-
+  String inputValue="";
   void alertResult(DialogAction action){
     print("Tu seleccion es $action");
   }
-  void showAlert(){
+  void showAlert(String value){
     AlertDialog dialog = AlertDialog(
-      content: Text("Paco"),
+      content: Text(value),
       actions: <Widget>[
         FlatButton(
           child: Text("Si"),
@@ -32,8 +32,14 @@ class _MyDialogState extends State<MyDialog> {
     );
 
     showDialog(context: context, builder: (BuildContext context){return dialog;});
-
   }
+
+  void onChanged(String value){
+    setState(() {
+      inputValue = value;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,12 +52,13 @@ class _MyDialogState extends State<MyDialog> {
           children: <Widget>[
             TextField(
               decoration: InputDecoration(hintText: "Ingresa el texto aqui"),
+              onChanged: onChanged,
               //onSubmitted: onSubmitted,
               //controller: controller,
             ),
             RaisedButton(
               child: Text("ver alerta"),
-              onPressed: showAlert,
+              onPressed: (){showAlert(inputValue);},
             ),
           ],
         ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:navigatorapp/src/screens/second.dart';
 
 class App extends StatefulWidget {
   App({Key key}) : super(key: key);
@@ -12,6 +13,17 @@ class _AppState extends State<App> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Primera pantalla"),
+      ),
+      body: Center(
+        child: RaisedButton(
+          child: Text("Primera pantalla"),
+          onPressed: (){
+            Navigator.push(context, MaterialPageRoute(
+                builder:(context) => Second(title: "Hola"),
+
+            ));
+          },
+        ),
       ),
     );
   }

@@ -11,13 +11,22 @@ class _AppState extends State<App> {
   final suggestions = <WordPair>[];
   final saved = <WordPair>[];
 
+
   ListTile buildRow(WordPair pair) {
+    final bool alreadySaved = saved.contains(pair);
     return ListTile(
-      trailing: Icon(Icons.favorite),
+      trailing: Icon(
+          alreadySaved ? Icons.favorite
+              : Icons.favorite_border, color: Colors.redAccent),
       title: Text(pair.asCamelCase),
       //subtitle: Text('Precio: ${Random().nextInt(100)} USD'),
       onTap: () {
-        saved.add(pair);
+       setState((){
+         if(alreadySaved)
+           saved.remove(pair);
+         else
+          saved.add(pair);
+       });
       },
     );
   }

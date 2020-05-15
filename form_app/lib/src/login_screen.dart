@@ -8,6 +8,30 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Container(
+      margin: EdgeInsets.all(20.0),
+      child: Form(
+        child: Column(
+          children: <Widget>[
+             emailField(),
+            //passwordField(),
+            //submitField()
+          ],
+        ),
+      ),
+    );
   }
+
+  //helper methods
+  Widget emailField(){
+    return TextFormField(
+      keyboardType: TextInputType.emailAddress,
+      decoration: InputDecoration(
+        labelText: "Email",
+        hintText: "you@example.com"
+      ),
+    );
+  }
+  Widget passwordField(){}
+  Widget submitField(){}
 }

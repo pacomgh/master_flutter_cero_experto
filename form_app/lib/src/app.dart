@@ -6,7 +6,9 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "Iniciar Sesión",
-      home: LoginScreen(),
+      home: Scaffold(
+        body: LoginScreen(),
+      ),
     );
   }
 }

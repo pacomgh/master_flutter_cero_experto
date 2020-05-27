@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:formapp/src/mixins/validation_mixins.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends State<LoginScreen> with ValidatorMixins {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -33,8 +34,9 @@ class _LoginScreenState extends State<LoginScreen> {
         labelText: "Email",
         hintText: "you@example.com"
       ),
-      validator: (value){
-        return "Email invalido";
+      validator: validateEmail,
+      onSaved: (value){
+        print("save"+value);
       },
     );
   }
@@ -45,8 +47,9 @@ class _LoginScreenState extends State<LoginScreen> {
         labelText: "Contraseña",
         hintText: "Contraseña"
       ),
-      validator: (value){
-        return "Contraseña invalida";
+      validator: validatePassword,
+      onSaved: (value){
+        print("save"+value);
       },
     );
   }
@@ -56,7 +59,8 @@ class _LoginScreenState extends State<LoginScreen> {
       color: Colors.blueAccent,
       textColor: Colors.white,
       onPressed: (){
-        formKey.currentState.validate();
+        if(formKey.currentState.validate())
+          formKey.currentState.save();
       },
     );
   }

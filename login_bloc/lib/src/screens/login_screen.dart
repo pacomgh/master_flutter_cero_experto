@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:loginbloc/src/bloc/bloc.dart';
 
 class LoginScreen extends StatelessWidget {
+  final bloc = Bloc();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -24,6 +26,7 @@ class LoginScreen extends StatelessWidget {
         labelText: 'Email',
         errorText: ''
       ),
+      onChanged: (value) => bloc.changeEmail,
     );
   }
   Widget passwordField(){
@@ -33,6 +36,7 @@ class LoginScreen extends StatelessWidget {
         hintText: 'Contraseña',
         labelText: 'Contraseña'
       ),
+      onChanged: (value) => bloc.changePassword,
     );
   }
   Widget submitButton(){

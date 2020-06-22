@@ -16,3 +16,6 @@ class Bloc with Validators{
     _passwordController.close();
   }
 }
+
+//permite usar bloc fuera de esta clase sin crear una instancia en la clase externa
+final bloc = Bloc();

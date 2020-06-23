@@ -5,8 +5,9 @@ class Validators{
     handleData: (email, sink){
       if(email.contains('@'))
         sink.add(email);
-      else
+      else {
         sink.addError('Email invalido');
+      }
     }
   );
 

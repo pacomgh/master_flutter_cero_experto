@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:loginbloc/src/bloc/bloc.dart';
+import 'package:loginbloc2/src/bloc/provider.dart';
+import 'package:loginbloc2/src/bloc/bloc.dart';
 
 class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //accedemos al provider de app
-    final bloc = Provider.of<Bloc>(context);
+    final bloc = Provider.of(context);
     return Container(
       margin: EdgeInsets.all(20.0),
       child: Column(

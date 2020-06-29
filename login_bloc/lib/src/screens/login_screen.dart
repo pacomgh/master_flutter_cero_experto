@@ -31,7 +31,7 @@ class LoginScreen extends StatelessWidget {
               labelText: 'Email',
               errorText: snapshot.error
           ),
-          onChanged: (value) => bloc.changeEmail,
+          onChanged: bloc.changeEmail,
         );
       } ,
     );
@@ -47,7 +47,7 @@ class LoginScreen extends StatelessWidget {
               labelText: 'Contraseña',
               errorText: snapshot.error
           ),
-          onChanged: (value) => bloc.changePassword,
+          onChanged: bloc.changePassword,
         );
       },
     );

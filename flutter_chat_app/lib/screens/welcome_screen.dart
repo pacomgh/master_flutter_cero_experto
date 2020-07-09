@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class WelcomeScreen extends StatefulWidget {
+  static const String routeName = '';
   @override
   _WelcomeScreenState createState() => _WelcomeScreenState();
 }
@@ -23,7 +24,10 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               ],
             ),
             SizedBox(height: 48.0,),
-            getButton(Colors.lightBlueAccent, "Log in", (){}),
+            getButton(
+              Colors.lightBlueAccent,
+              "Log in",
+              (){Navigator.pushNamed(context, '/login');}),
             getButton(Colors.blueAccent, "Sign in", (){})
           ],
         ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutterchatapp/screens/login_screen.dart';
-import 'package:flutterchatapp/screens/welcome_screen.dart';
+import 'package:flutterchatapp/src/screens/login_screen.dart';
+import 'package:flutterchatapp/src/screens/welcome_screen.dart';
 
 void main(){
   runApp(

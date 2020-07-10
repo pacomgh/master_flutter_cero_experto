@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutterchatapp/src/screens/login_screen.dart';
+import 'package:flutterchatapp/src/screens/registration_screen.dart';
 import 'package:flutterchatapp/src/screens/welcome_screen.dart';
 
 void main(){
@@ -15,6 +16,7 @@ void main(){
         routes: <String, WidgetBuilder>{
           LoginScreen.routeName:(BuildContext context) =>LoginScreen(),
           WelcomeScreen.routeName:(BuildContext context) =>WelcomeScreen(),
+          RegistrationScreen.routeName:(BuildContext context) => RegistrationScreen(),
         },
       )
   );

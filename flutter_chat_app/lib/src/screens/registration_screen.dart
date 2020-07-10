@@ -1,16 +1,15 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterchatapp/src/widgets/app_button.dart';
 import 'package:flutterchatapp/src/widgets/app_icon.dart';
 import 'package:flutterchatapp/src/widgets/app_textfield.dart';
 
-class LoginScreen extends StatefulWidget {
-  static const String routeName = '/login';
-  //@override
-  _LoginScreenState createState() => _LoginScreenState();
+class RegistrationScreen extends StatefulWidget {
+  static const String routeName='/registration';
+  @override
+  _RegistrationScreenState createState() => _RegistrationScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegistrationScreenState extends State<RegistrationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,15 +21,15 @@ class _LoginScreenState extends State<LoginScreen> {
           children: <Widget>[
             AppIcon(),
             SizedBox(height: 48.0,),
-            AppTextField(inputText: "Ingresar email"),
+            AppTextField(inputText: "Ingresa tu email",),
             SizedBox(height: 8.0,),
-            AppTextField(inputText: "Ingresar contraseña"),
+            AppTextField(inputText: "Ingresa tu contraseña",),
             SizedBox(height: 23.0,),
             AppButton(
-              color: Colors.lightBlueAccent,
+              color: Colors.blueAccent,
               onPressed: (){},
-              name: "Log in"
-            ),
+              name: "Sing in"
+            )
           ],
         ),
       ),

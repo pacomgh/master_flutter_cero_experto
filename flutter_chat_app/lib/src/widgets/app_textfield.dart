@@ -1,9 +1,12 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AppTextField extends StatelessWidget {
 
   final String inputText;
-  const AppTextField({this.inputText});
+  final ValueChanged<String> onChanged;
+  final bool obscureText;
+  const AppTextField({this.inputText, this.onChanged, this.obscureText});
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +26,9 @@ class AppTextField extends StatelessWidget {
               borderSide: BorderSide(color: Colors.blueAccent, width: 2)
           )
       ),
+      onChanged: onChanged,
+      textAlign: TextAlign.center,
+      obscureText: obscureText == null ? false : obscureText,
     );
   }
 }

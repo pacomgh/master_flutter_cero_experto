@@ -10,6 +10,8 @@ class RegistrationScreen extends StatefulWidget {
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
+  String _email;
+  String _password;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,9 +23,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           children: <Widget>[
             AppIcon(),
             SizedBox(height: 48.0,),
-            AppTextField(inputText: "Ingresa tu email",),
+            AppTextField(inputText: "Ingresa tu email",
+            onChanged: (value){ _email = value;
+            print('Email: $_email');},),
             SizedBox(height: 8.0,),
-            AppTextField(inputText: "Ingresa tu contraseña",),
+            AppTextField(inputText: "Ingresa tu contraseña",
+            obscureText: true,
+            onChanged: (value){ _password = value;
+            print('Email: $_email'); },),
             SizedBox(height: 23.0,),
             AppButton(
               color: Colors.blueAccent,

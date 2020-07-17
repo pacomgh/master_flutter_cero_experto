@@ -14,6 +14,9 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   String _email;
   String _password;
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+  FocusNode _focusNode;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,11 +29,14 @@ class _LoginScreenState extends State<LoginScreen> {
             AppIcon(),
             SizedBox(height: 48.0,),
             AppTextField(
+              focusNode: _focusNode,
+              controller: _emailController,
               inputText: "Ingresar email",
               onChanged: (value){ _email = value;},
             ),
             SizedBox(height: 8.0,),
             AppTextField(
+              controller: _passwordController,
               inputText: "Ingresar contraseña",
               onChanged: (value) { _password = value; },
               obscureText: true,
@@ -42,6 +48,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 var user = Authentication().loginUser(email: _email, password:_password);
                 if(user != null)
                   Navigator.pushNamed(context, "/chat");
+                FocusScope.of(context).requestFocus(_focusNode);
+                _emailController.text = "";
+                _passwordController.text = "";
               },
               name: "Log in"
             ),
@@ -49,5 +58,19 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _focusNode = FocusNode();
+  }
+
+  @override
+  void dispose(){
+    super.dispose();
+    _focusNode.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
   }
 }

@@ -15,6 +15,24 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   //_ indica que los atributos sin privados, solo se usan en la clase
   String _email;
   String _password;
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+  FocusNode _focusNode;
+
+  @override
+  void dispose(){
+    super.dispose();
+    _focusNode.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _focusNode = FocusNode();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,16 +46,21 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           children: <Widget>[
             AppIcon(),
             SizedBox(height: 48.0,),
-            AppTextField(inputText: "Ingresa tu email",
-            onChanged: (value){ _email = value;
-            print('Email: $_email');},),
-            //sizedbox agrega un espaciado de la altura indicada
+            AppTextField(
+              focusNode: _focusNode,
+              controller: _emailController,
+              inputText: "Ingresa tu email",
+              onChanged: (value){ _email = value;
+              print('Email: $_email');},),
+              //sizedbox agrega un espaciado de la altura indicada
             SizedBox(height: 8.0,),
-            AppTextField(inputText: "Ingresa tu contraseña",
-            //oculta la contraseña
-            obscureText: true,
-            onChanged: (value){ _password = value;
-            /*print('Email: $_email');*/ },),
+            AppTextField(
+              controller: _passwordController,
+              inputText: "Ingresa tu contraseña",
+              //oculta la contraseña
+              obscureText: true,
+              onChanged: (value){ _password = value;
+              /*print('Email: $_email');*/ },),
             SizedBox(height: 23.0,),
             AppButton(
               color: Colors.blueAccent,
@@ -45,6 +68,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 var newUser = await Authentication().createUser(email: _email, password: _password);
                 if(newUser!=null)
                   Navigator.pushNamed(context, '/chat');
+                _emailController.text = "";
+                _passwordController.text = "";
+                FocusScope.of(context).requestFocus(_focusNode);
               },
               name: "Sing in"
             )

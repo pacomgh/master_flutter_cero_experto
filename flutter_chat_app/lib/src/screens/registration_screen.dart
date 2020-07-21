@@ -50,7 +50,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               focusNode: _focusNode,
               controller: _emailController,
               inputText: "Ingresa tu email",
-              onChanged: (value){ _email = value;
+              onSaved: (value){ _email = value;
               print('Email: $_email');},),
               //sizedbox agrega un espaciado de la altura indicada
             SizedBox(height: 8.0,),
@@ -59,7 +59,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               inputText: "Ingresa tu contraseña",
               //oculta la contraseña
               obscureText: true,
-              onChanged: (value){ _password = value;
+              onSaved: (value){ _password = value;
               /*print('Email: $_email');*/ },),
             SizedBox(height: 23.0,),
             AppButton(

@@ -4,19 +4,22 @@ import 'package:flutter/material.dart';
 class AppTextField extends StatelessWidget {
 
   final String inputText;
-  final ValueChanged<String> onChanged;
+  final ValueChanged<String> onSaved;
   final bool obscureText;
   final TextEditingController controller;
   final FocusNode focusNode;
+  final bool autovalidate;
+  final FormFieldValidator<String> validator;
 
   const AppTextField({
-    this.inputText, this.onChanged, this.obscureText, this.controller,
-    this.focusNode
+    this.inputText, this.onSaved, this.obscureText, this.controller,
+    this.focusNode, this.validator, this.autovalidate
   });
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
+      autovalidate: autovalidate,
       focusNode: focusNode,
       controller: controller,
       decoration: InputDecoration(
@@ -34,7 +37,7 @@ class AppTextField extends StatelessWidget {
               borderSide: BorderSide(color: Colors.blueAccent, width: 2)
           )
       ),
-      onChanged: onChanged,
+      onSaved: onSaved,
       textAlign: TextAlign.center,
       obscureText: obscureText == null ? false : obscureText,
     );

@@ -28,10 +28,10 @@ class _LoginScreenState extends State<LoginScreen> with ValidationMixins{
     return Scaffold(
       body: ModalProgressHUD(
         inAsyncCall: showSpinner,
-        child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 24.0),
-          child: Form(
-            key: _formState,
+        child: Form(
+          key: _formState,
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 20.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -99,7 +99,7 @@ class _LoginScreenState extends State<LoginScreen> with ValidationMixins{
         onPressed: () async{
           if(_formState.currentState.validate()) {
             setSpinnerStatus(true);
-            var user = Authentication().loginUser(
+            var user = await Authentication().loginUser(
                 email: _emailController.text, password: _passwordController.text);
             if (user != null)
               Navigator.pushNamed(context, "/chat");

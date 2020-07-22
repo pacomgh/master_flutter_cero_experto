@@ -20,6 +20,7 @@ class AppTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       autovalidate: autovalidate,
+      validator: validator,
       focusNode: focusNode,
       controller: controller,
       decoration: InputDecoration(

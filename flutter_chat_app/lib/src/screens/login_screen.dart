@@ -42,7 +42,7 @@ class _LoginScreenState extends State<LoginScreen> with ValidationMixins{
                 SizedBox(height: 8.0,),
                 _passwordField(),
                 SizedBox(height: 23.0,),
-                _submitField(),
+                _submitButton(),
               ],
             ),
           )
@@ -93,7 +93,7 @@ class _LoginScreenState extends State<LoginScreen> with ValidationMixins{
     );
   }
 
-  Widget _submitField(){
+  Widget _submitButton(){
     return AppButton(
         color: Colors.lightBlueAccent,
         onPressed: () async{

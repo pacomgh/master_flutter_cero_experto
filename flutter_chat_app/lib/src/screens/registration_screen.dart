@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterchatapp/src/mixins/validation_mixins.dart';
 import 'package:flutterchatapp/src/services/authentication.dart';
 import 'package:flutterchatapp/src/widgets/app_button.dart';
+import 'package:flutterchatapp/src/widgets/app_error_message.dart';
 import 'package:flutterchatapp/src/widgets/app_icon.dart';
 import 'package:flutterchatapp/src/widgets/app_textfield.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -21,6 +22,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> with Validation
   FocusNode _focusNode;
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _autovalidate = false;
+  String _errorMessage = "";
 
   @override
   void dispose(){
@@ -56,6 +58,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> with Validation
               SizedBox(height: 8.0,),
               _passwordField(),
               SizedBox(height: 23.0,),
+              _showErrorMessage(),
               _submitButton(),
             ],
           ),
@@ -92,19 +95,33 @@ class _RegistrationScreenState extends State<RegistrationScreen> with Validation
         color: Colors.blueAccent,
         onPressed: () async {
           if(_formKey.currentState.validate()) {
-            var newUser = await Authentication().createUser(
+            var auth = await Authentication().createUser(
                 email: _emailController.text, password: _passwordController.text
             );
-            if (newUser != null)
+            if (auth.success) {
               Navigator.pushNamed(context, '/chat');
-            _emailController.text = "";
-            _passwordController.text = "";
-            FocusScope.of(context).requestFocus(_focusNode);
+              _emailController.text = "";
+              _passwordController.text = "";
+              FocusScope.of(context).requestFocus(_focusNode);
+            }else{
+              setState(() {
+                _errorMessage = auth.errorMessage;
+              });
+            }
           }else{
             setState(() => _autovalidate=true);
           }
         },
         name: "Sing in"
     );
+  }
+
+  Widget _showErrorMessage(){
+    if(_errorMessage.length > 0 && _errorMessage != null)
+      return ErrorMessage(errorMessage: _errorMessage);
+    else
+      return Container(
+        height: 0.0,
+      );
   }
 }

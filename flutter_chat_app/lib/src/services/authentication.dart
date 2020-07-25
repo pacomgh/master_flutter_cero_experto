@@ -63,7 +63,7 @@ class Authentication{
         authRequest.errorMessage = "Error en la conexión";
         break;
 
-      case 'EMAIL_ALREADY_IN_USE':
+      case 'ERROR_EMAIL_ALREADY_IN_USE':
         authRequest.errorMessage = "El usuario ya esta registrado";
         break;
 

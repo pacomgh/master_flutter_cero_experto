@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterchatapp/src/mixins/validation_mixins.dart';
 import 'package:flutterchatapp/src/services/authentication.dart';
 import 'package:flutterchatapp/src/widgets/app_button.dart';
+import 'package:flutterchatapp/src/widgets/app_error_message.dart';
 import 'package:flutterchatapp/src/widgets/app_icon.dart';
 import 'package:flutterchatapp/src/widgets/app_textfield.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
@@ -23,6 +24,7 @@ class _LoginScreenState extends State<LoginScreen> with ValidationMixins{
   FocusNode _focusNode;
   bool _autovalidate=false;
   final GlobalKey<FormState> _formState = GlobalKey<FormState>();
+  String _errorMessage = "";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,6 +44,7 @@ class _LoginScreenState extends State<LoginScreen> with ValidationMixins{
                 SizedBox(height: 8.0,),
                 _passwordField(),
                 SizedBox(height: 23.0,),
+                _showErrorMessage(),
                 _submitButton(),
               ],
             ),
@@ -99,19 +102,33 @@ class _LoginScreenState extends State<LoginScreen> with ValidationMixins{
         onPressed: () async{
           if(_formState.currentState.validate()) {
             setSpinnerStatus(true);
-            var user = await Authentication().loginUser(
+            var auth = await Authentication().loginUser(
                 email: _emailController.text, password: _passwordController.text);
-            if (user != null)
+            if (auth.success) {
               Navigator.pushNamed(context, "/chat");
-            FocusScope.of(context).requestFocus(_focusNode);
-            _emailController.text = "";
-            _passwordController.text = "";
+              FocusScope.of(context).requestFocus(_focusNode);
+              _emailController.text = "";
+              _passwordController.text = "";
+            }else{
+              setState(() {
+                _errorMessage = auth.errorMessage;
+              });
+            }
             setSpinnerStatus(false);
           }else
             setState(() => _autovalidate=true);
         },
         name: "Log in"
     );
+  }
+
+  Widget _showErrorMessage(){
+    if(_errorMessage.length > 0 && _errorMessage != null)
+      return ErrorMessage(errorMessage: _errorMessage);
+    else
+      return Container(
+        height: 0.0,
+      );
   }
 
 }

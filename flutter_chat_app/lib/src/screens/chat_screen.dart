@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterchatapp/src/services/authentication.dart';
 //importa firestore
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutterchatapp/src/services/message_service.dart';
 
 class ChatScreen extends StatefulWidget {
   static const String routeName = '/chat';
@@ -54,10 +55,12 @@ class _ChatScreenState extends State<ChatScreen> {
                   FlatButton(
                     child: Text("Enviar", style: _sendButtonStyle,),
                     onPressed: () {
-                      _firestore.collection("messages").add({
-                        'value': _messageController,
-                        'sender': loggedInUser.email
-                      });
+                      MessageService().save(
+                          collectionName: "messages",
+                          collectionValues:{
+                            'value': _messageController.text,
+                            'sender': loggedInUser.email
+                          });
                     },
                   ),
                 ]

@@ -45,6 +45,10 @@ android {
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        //add when get error method 64k
+        //D8: Cannot fit requested classes in a single dex file
+        //The number of method references in a .dex file cannot exceed 64K
+        multiDexEnabled true
     }
 
     buildTypes {

@@ -83,6 +83,12 @@ class _ChatScreenState extends State<ChatScreen> {
     }
   }
 
+  void _getMessages() async{
+    final messages = await MessageService().getMessages();
+    for (var message in messages.documents)
+      print(message);
+  }
+
   InputDecoration _messageTextFieldDecoration = InputDecoration(
       contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
       hintText: 'Ingresa tu mensaje aquí',

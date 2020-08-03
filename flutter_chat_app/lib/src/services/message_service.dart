@@ -11,4 +11,9 @@ class MessageService {
   Future<QuerySnapshot> getMessages() async{
     return await _firestore.collection("messages").getDocuments();
   }
+
+  Stream<QuerySnapshot> getMessageStream() {
+    //con snapshots se hace solo llama una vez y tenemos disponible la informacion
+    return  _firestore.collection("messages").snapshots();
+  }
 }

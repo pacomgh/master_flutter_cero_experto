@@ -23,6 +23,7 @@ class _ChatScreenState extends State<ChatScreen> {
     // TODO: implement initState
     super.initState();
     getCurrentUser();
+    _getMessages();
   }
 
   @override
@@ -43,6 +44,29 @@ class _ChatScreenState extends State<ChatScreen> {
         body: SafeArea(
           child: Column(
             children: <Widget>[
+              StreamBuilder(
+                stream: MessageService().getMessageStream(),
+                builder: (context, snapshot){
+                  if(snapshot.hasData){
+                    var messages = snapshot.data.documents;
+                    List<Text> messageWidgets = [];
+                    for(var message in messages){
+                      var messageValue = message.data["value"];
+                      var messageSender = message.data["sender"];
+                      messageWidgets.add(
+                        Text(
+                          '$messageValue de $messageSender',
+                          style: TextStyle(fontSize: 30.0),),
+                      );
+                    }
+                    return Flexible(
+                        child: ListView(
+                          children: messageWidgets,
+                        )
+                    );
+                  }
+                },
+              ),
               Container(
                 decoration: _messageContainerDecoration,
                 child: Row(children: <Widget>[
@@ -76,7 +100,7 @@ class _ChatScreenState extends State<ChatScreen> {
       var user = await auth.currentUser();
       if (user != null) {
         loggedInUser = user;
-        print(loggedInUser.email);
+        //print(loggedInUser.email);
       }
     } catch (e) {
       print(e);
@@ -84,9 +108,11 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   void _getMessages() async{
-    final messages = await MessageService().getMessages();
-    for (var message in messages.documents)
-      print(message);
+    //final snapshots = await MessageService().getMessageStream();
+    //recorremos los valores de snapshot
+    await for (var snapshot in MessageService().getMessageStream())
+    for (var message in snapshot.documents)
+      print(message.data);
   }
 
   InputDecoration _messageTextFieldDecoration = InputDecoration(

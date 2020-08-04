@@ -49,19 +49,15 @@ class _ChatScreenState extends State<ChatScreen> {
                 builder: (context, snapshot){
                   if(snapshot.hasData){
                     var messages = snapshot.data.documents;
-                    List<Text> messageWidgets = [];
+                    List<ChatItem> chatItems = [];
                     for(var message in messages){
                       var messageValue = message.data["value"];
                       var messageSender = message.data["sender"];
-                      messageWidgets.add(
-                        Text(
-                          '$messageValue de $messageSender',
-                          style: TextStyle(fontSize: 30.0),),
-                      );
+                      chatItems.add(ChatItem(message: messageValue, sender: messageSender,));
                     }
                     return Flexible(
                         child: ListView(
-                          children: messageWidgets,
+                          children: chatItems,
                         )
                     );
                   }
@@ -127,4 +123,42 @@ class _ChatScreenState extends State<ChatScreen> {
   TextStyle _sendButtonStyle = TextStyle(
     color: Colors.lightBlueAccent, fontWeight: FontWeight.bold, fontSize: 18.0
   );
+}
+
+class ChatItem extends StatelessWidget {
+  final String sender;
+  final String message;
+  ChatItem({this.sender, this.message});
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(10.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: <Widget>[
+          Text(
+            sender,
+            style: TextStyle(
+                fontSize: 15.0,
+                color: Colors.black54
+            ),
+          ),
+          Material(
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+              child: Text(
+                message,
+                style: TextStyle(
+                    fontSize: 16.0,
+                    color: Colors.white
+                ),
+              ),
+            ),
+            borderRadius: BorderRadius.circular(30.0),
+            color: Colors.lightBlueAccent,
+          )
+        ],
+      ),
+    );
+  }
 }

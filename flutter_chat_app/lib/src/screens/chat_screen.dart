@@ -48,16 +48,10 @@ class _ChatScreenState extends State<ChatScreen> {
                 stream: MessageService().getMessageStream(),
                 builder: (context, snapshot){
                   if(snapshot.hasData){
-                    var messages = snapshot.data.documents;
-                    List<ChatItem> chatItems = [];
-                    for(var message in messages){
-                      var messageValue = message.data["value"];
-                      var messageSender = message.data["sender"];
-                      chatItems.add(ChatItem(message: messageValue, sender: messageSender,));
-                    }
+                    //var messages = snapshot.data.documents;
                     return Flexible(
                         child: ListView(
-                          children: chatItems,
+                          children: _getChatItems(snapshot.data.documents),
                         )
                     );
                   }
@@ -81,6 +75,7 @@ class _ChatScreenState extends State<ChatScreen> {
                             'value': _messageController.text,
                             'sender': loggedInUser.email
                           });
+                      _messageController.clear();
                     },
                   ),
                 ]
@@ -88,7 +83,22 @@ class _ChatScreenState extends State<ChatScreen> {
               ),
             ],
           ),
-        ));
+        )
+    );
+  }
+
+  List<ChatItem> _getChatItems(dynamic messages){
+    List<ChatItem> chatItems = [];
+    for(var message in messages){
+      var messageValue = message.data["value"];
+      var messageSender = message.data["sender"];
+      chatItems.add(ChatItem
+        (message: messageValue,
+        sender: messageSender,
+        isLoggedInUser: messageSender==loggedInUser.email,)
+      );
+    }
+    return chatItems;
   }
 
   void getCurrentUser() async {
@@ -128,7 +138,8 @@ class _ChatScreenState extends State<ChatScreen> {
 class ChatItem extends StatelessWidget {
   final String sender;
   final String message;
-  ChatItem({this.sender, this.message});
+  final bool isLoggedInUser;
+  ChatItem({this.sender, this.message, this.isLoggedInUser});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -150,12 +161,17 @@ class ChatItem extends StatelessWidget {
                 message,
                 style: TextStyle(
                     fontSize: 16.0,
-                    color: Colors.white
+                    color: isLoggedInUser ? Colors.white : Colors.black45
                 ),
               ),
             ),
-            borderRadius: BorderRadius.circular(30.0),
-            color: Colors.lightBlueAccent,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(30.0),
+              bottomLeft: Radius.circular(30.0),
+              bottomRight: Radius.circular(30.0)
+            ),
+            elevation: 5.0,
+            color: isLoggedInUser ? Colors.lightBlueAccent : Colors.white,
           )
         ],
       ),

@@ -1,6 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:movieapp/media_list.dart';
+import 'package:movieapp/common/HttpHandler.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+
+//  @override
+//  void initState() {
+//    // TODO: implement initState
+//    super.initState();
+//    _loadJson();
+//  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +36,7 @@ class Home extends StatelessWidget {
           children: <Widget>[
             new DrawerHeader(
               decoration: BoxDecoration(
-                color: Colors.blue
+                  color: Colors.blue
               ),
               child: new Text(
                 'Movie Perfil',
@@ -55,7 +70,11 @@ class Home extends StatelessWidget {
           ],
         ),
       ),
-      body: new PageView(),
+      body: new PageView(
+        children: <Widget>[
+          new MediaList()
+        ],
+      ),
       bottomNavigationBar: new BottomNavigationBar(
           items: _getFooterItems()
       ),
@@ -68,7 +87,7 @@ class Home extends StatelessWidget {
           icon: new Icon(
               Icons.thumb_up
           ),
-        title: Text("Populares")
+          title: Text("Populares")
       ),
       new BottomNavigationBarItem(
           icon: new Icon(
@@ -84,4 +103,10 @@ class Home extends StatelessWidget {
       )
     ];
   }
+
+  /*_loadJson()async{
+    String data = await HttpHandler().tetchMovies();
+    print(data);
+  }*/
 }
+

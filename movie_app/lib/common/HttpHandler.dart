@@ -22,7 +22,7 @@ class HttpHandler{
     //tercer parametro objeto para enviar los parametros necesarios
     var uri = new Uri.http(_baseUrl, "3/movie/popular",{//define el url
       //api generada
-      'api_key': API_KEY,
+      'api_key': api_key,
       //pagina
       'page': '1',
       'language': _language

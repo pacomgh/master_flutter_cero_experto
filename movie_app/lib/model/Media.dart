@@ -10,7 +10,8 @@ class Media{
   List<dynamic> genreIds;
 
   //obtenemos la url de una imagen mediana mandando el url que obtuvimos del api
-  String getPosterutl() => getMediumPictureUrl(posterPath);
+  String getPosterUrl() => getMediumPictureUrl(posterPath);
+  String getBackdropUrl() => getLargePictureUrl(posterPath);
 
   factory Media(Map jsonMap){
     try{

@@ -37,7 +37,7 @@ class MediaListItem extends StatelessWidget {
                     ),
                     //para que ocupe el espacio indicado
                     constraints: new BoxConstraints.expand(
-                      height: 55.0
+                      height: 50.0
                     ),
                   )
                 ),

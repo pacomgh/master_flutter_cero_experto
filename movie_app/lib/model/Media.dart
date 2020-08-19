@@ -12,6 +12,8 @@ class Media{
   //obtenemos la url de una imagen mediana mandando el url que obtuvimos del api
   String getPosterUrl() => getMediumPictureUrl(posterPath);
   String getBackdropUrl() => getLargePictureUrl(posterPath);
+  //Devolvemos un string de los id de los generos
+  String getGenres() => getGenreValues(genreIds);
 
   factory Media(Map jsonMap){
     try{

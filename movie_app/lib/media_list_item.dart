@@ -43,7 +43,7 @@ class MediaListItem extends StatelessWidget {
                 ),
                 new Positioned(
                   left: 10.0,
-                  bottom: 30.0,
+                  bottom: 10.0,
                   child: new Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -55,6 +55,31 @@ class MediaListItem extends StatelessWidget {
                           ),
                         ),
                       ),
+                      new Container(
+                        width: 250.0,
+                        padding: const EdgeInsets.only(top: 4),
+                        child: new Text(
+                          media.getGenres(),
+                          style: new TextStyle(color: Colors.white,),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                new Positioned(
+                  right: 5.0,
+                  bottom: 10.0,
+                  child: new Column(
+                    children: [
+                      new Row(
+                        children: [
+                          new Text(media.voteAverage.toString()),
+                          new Container(width: 4.0,),
+                          new Icon(Icons.star, color: Colors.white, size: 16.0,)
+                        ],
+                      )
                     ],
                   ),
                 )

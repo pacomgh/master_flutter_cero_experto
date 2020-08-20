@@ -15,6 +15,14 @@ class Media{
   //Devolvemos un string de los id de los generos
   String getGenres() => getGenreValues(genreIds);
 
+  int getReleaseYear(){
+    //verificamos que la fecha no venga vacia
+    if(releaseDate == null || releaseDate == "")
+      return 0;
+    //hacemos un parse de la fecha a formato de fecha y extraemos el año
+    return DateTime.parse(releaseDate).year;
+  }
+
   factory Media(Map jsonMap){
     try{
       return new Media.deserialize(jsonMap);

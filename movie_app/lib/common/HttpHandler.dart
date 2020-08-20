@@ -5,8 +5,16 @@ import 'package:movieapp/common/Constants.dart';
 import 'package:movieapp/model/Media.dart';
 
 class HttpHandler{
+  //variable para poder usar http handler desde otra clase
+  static final _httpHandler = new HttpHandler();
   final String _baseUrl = "api.themoviedb.org";
   final String _language = "es-ES";
+  //metodo que retorna el objeto de httphandler
+  static HttpHanlder get(){
+    return _httpHandler;
+  }
+
+
   //si no sabemos que devuelve usamos dynamic, dynamic = tipo generico
   //obtenemos el json de la respeusta a la api
   //interaccion mediante llamadas asyncronas, usamos future

@@ -1,4 +1,6 @@
 import 'package:movieapp/common/util.dart';
+import 'package:movieapp/common/MediaProvider.dart';
+
 class Media{
   int id;
   double voteAverage;
@@ -23,22 +25,24 @@ class Media{
     return DateTime.parse(releaseDate).year;
   }
 
-  factory Media(Map jsonMap){
+  factory Media(Map jsonMap, MediaType mediaType){
     try{
-      return new Media.deserialize(jsonMap);
+      return new Media.deserialize(jsonMap, mediaType);
     }catch(ex){
       throw ex;
     }
   }
 
   //tomamos el json y lo transformamos a string con deserialize
-  Media.deserialize(Map json):
+  Media.deserialize(Map json, MediaType mediaType):
       id = json["id"].toInt(),
       voteAverage = json["vote_average"].toDouble(),
       title = json["title"],
       posterPath = json["poster_path"] ?? "",
       backdropPath = json["backdrop_path"] ?? "",
       overview = json["overview"],
-      releaseDate = json["release_date"],
+  //si es pelicula se muetra el lanzamiento, si es show se muestra primer transmision
+      releaseDate = json[mediaType == MediaType.movie ?
+      "release_date" : "first_air_date"],
       genreIds = json["genre_ids"].toList();
 }

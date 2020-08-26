@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movieapp/media_list.dart';
 import 'package:movieapp/common/HttpHandler.dart';
+import 'package:movieapp/common/MediaProvider.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -8,6 +9,11 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  //variables para alojar la instancia de clase que queremos mostrar de la lista
+  final MediaProvider movieProvider = new MovieProvider();
+  final MediaProvider showProvider = new ShowProvider();
+  //variable para el tipo que estamos utilizando con el enum
+  MediaType mediaType = MediaType.movie;
 
 //  @override
 //  void initState() {
@@ -47,6 +53,11 @@ class _HomeState extends State<Home> {
             new ListTile(
               trailing: new Icon(Icons.local_movies, color: Colors.white,),
               title: new Text("Películas"),
+              selected: mediaType == MediaType.movie,
+              onTap: (){
+                _changeMediaType(MediaType.movie);
+                Navigator.of(context).pop();
+              },
             ),
             new Divider(
               height: 5.0,
@@ -54,6 +65,11 @@ class _HomeState extends State<Home> {
             new ListTile(
               trailing: new Icon(Icons.live_tv, color: Colors.white,),
               title: new Text("Televisión"),
+              selected: mediaType == MediaType.show,
+              onTap: (){
+                _changeMediaType(MediaType.show);
+                Navigator.of(context).pop();
+              },
             ),
             new Divider(
               height: 5.0,
@@ -102,6 +118,14 @@ class _HomeState extends State<Home> {
           title: Text("Mejor Valoradas")
       )
     ];
+  }
+
+  void _changeMediaType(MediaType type){
+    if(mediaType != type)
+      //hacemos un rebuild de nuestro widget
+      setState(() {
+        mediaType = type;
+      });
   }
 
   /*_loadJson()async{

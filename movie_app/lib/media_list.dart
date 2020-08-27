@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:movieapp/common/HttpHandler.dart';
 import 'package:movieapp/model/Media.dart';
 import 'package:movieapp/media_list_item.dart';
+import 'package:movieapp/common/MediaProvider.dart';
 
 class MediaList extends StatefulWidget {
+  final MediaProvider provider;
+  MediaList(this.provider);
+
   @override
   _MediaListState createState() => _MediaListState();
 }
@@ -16,6 +20,18 @@ class _MediaListState extends State<MediaList> {
     // TODO: implement initState
     super.initState();
     loadMovies();
+  }
+  //llamamos este metodo cuando queremos hacer recargar la informacion cada
+  //que se hace un cambio
+  @override
+  void didUpdateWidget(MediaList oldWidget){
+    //solo queremos que se recargue en caso de que el provider cambie por el usuario
+    //runtimetype es el tupo de objeto que tenemos en tiempo de ejecucion show/media prov
+    if(oldWidget.provider.runtimeType != widget.provider.runtimeType) {
+      _media = new List();
+      loadMovies();
+    }
+    super.didUpdateWidget(oldWidget);
   }
 
   @override
@@ -34,9 +50,10 @@ class _MediaListState extends State<MediaList> {
   //obtenemos las peliculas
   void loadMovies() async{
     //guardamos la respuesta en una variable
-    var movies = await HttpHandler().fetchMovies();
+    //fetch media viene con movie o show provider
+    var media = await widget.provider.fetchMedia();
     setState(() {
-      _media.addAll(movies);
+      _media.addAll(media);
     });
 
   }

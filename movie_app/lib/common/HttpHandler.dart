@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:movieapp/common/Constants.dart';
 import 'package:movieapp/model/Media.dart';
+import 'package:movieapp/common/MediaProvider.dart';
 
 class HttpHandler{
   //variable para poder usar http handler desde otra clase

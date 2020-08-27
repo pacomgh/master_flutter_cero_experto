@@ -87,9 +87,7 @@ class _HomeState extends State<Home> {
         ),
       ),
       body: new PageView(
-        children: <Widget>[
-          new MediaList()
-        ],
+        children: _getMediaList()
       ),
       bottomNavigationBar: new BottomNavigationBar(
           items: _getFooterItems()
@@ -126,6 +124,19 @@ class _HomeState extends State<Home> {
       setState(() {
         mediaType = type;
       });
+  }
+  //devuelve lista de widget
+  //media type cambia con el menu que se selecciona
+  List<Widget> _getMediaList(){
+    //devuelve widget dependiendo del mediatype que se envia(enum)
+    return mediaType == MediaType.movie ? <Widget>[
+      //obtenemos el proveedor de peliculas
+      new MediaList(movieProvider)
+    ]:
+    <Widget>[
+      //obtenemos el proveedor de show de tv
+      new MediaList(showProvider)
+    ];
   }
 
   /*_loadJson()async{

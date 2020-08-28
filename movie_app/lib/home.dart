@@ -12,15 +12,25 @@ class _HomeState extends State<Home> {
   //variables para alojar la instancia de clase que queremos mostrar de la lista
   final MediaProvider movieProvider = new MovieProvider();
   final MediaProvider showProvider = new ShowProvider();
+  //variable que controla que pagina se vera en pageview
+  PageController _pageController;
+  int _page = 0;
   //variable para el tipo que estamos utilizando con el enum
   MediaType mediaType = MediaType.movie;
 
-//  @override
-//  void initState() {
-//    // TODO: implement initState
-//    super.initState();
-//    _loadJson();
-//  }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    //_loadJson();
+    _pageController = new PageController();
+  }
+
+  @override
+  //liberamos page controller del arbol jerarquico
+  void dispose(){
+    _pageController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -87,16 +97,30 @@ class _HomeState extends State<Home> {
         ),
       ),
       body: new PageView(
-        children: _getMediaList()
+        children: _getMediaList(),
+        //determinamos que pagina estara visible en el pageview
+        controller: _pageController,
+        //nos da el indice de la pagina que se le hace click
+        onPageChanged: (int index){
+          setState(() {
+            //nos matiene en la pagina que estamos
+            _page = index;
+          });
+        },
       ),
       bottomNavigationBar: new BottomNavigationBar(
-          items: _getFooterItems()
+          items: _getFooterItems(),
+          //creamos una animacion para cuando cambie
+          onTap: _navigationTapped,
+        //
+        currentIndex: _page,
       ),
     );
   }
 
   List<BottomNavigationBarItem> _getFooterItems(){
-    return [
+    return mediaType == MediaType.movie ?
+    [
       new BottomNavigationBarItem(
           icon: new Icon(
               Icons.thumb_up
@@ -108,6 +132,25 @@ class _HomeState extends State<Home> {
               Icons.update
           ),
           title: Text("Proximamente")
+      ),
+      new BottomNavigationBarItem(
+          icon: new Icon(
+              Icons.star
+          ),
+          title: Text("Mejor Valoradas")
+      )
+    ] : [
+      new BottomNavigationBarItem(
+          icon: new Icon(
+              Icons.thumb_up
+          ),
+          title: Text("Populares")
+      ),
+      new BottomNavigationBarItem(
+          icon: new Icon(
+              Icons.update
+          ),
+          title: Text("Al aire")
       ),
       new BottomNavigationBarItem(
           icon: new Icon(
@@ -131,13 +174,29 @@ class _HomeState extends State<Home> {
     //devuelve widget dependiendo del mediatype que se envia(enum)
     return mediaType == MediaType.movie ? <Widget>[
       //obtenemos el proveedor de peliculas
-      new MediaList(movieProvider)
+      new MediaList(movieProvider, "popular"),
+      new MediaList(movieProvider, "upcoming"),
+      new MediaList(movieProvider, "top_rated")
     ]:
     <Widget>[
       //obtenemos el proveedor de show de tv
-      new MediaList(showProvider)
+      new MediaList(showProvider, "popular"),
+      new MediaList(showProvider, "on_the_air"),
+      new MediaList(showProvider, "top_rated"),
     ];
   }
+
+  //recibimos el parametro del numero de pagina que seleccionamos
+  void _navigationTapped(int page){
+    //creamos una animacion para el cambio de pagina
+    _pageController.animateToPage(
+      page,
+      duration: const Duration(milliseconds: 3),
+      curve: Curves.ease
+    );
+  }
+
+  void _getController(){}
 
   /*_loadJson()async{
     String data = await HttpHandler().tetchMovies();

@@ -3,23 +3,25 @@ import 'package:movieapp/model/Media.dart';
 import 'package:movieapp/common/HttpHandler.dart';
 
 abstract class MediaProvider{
-  Future<List<Media>> fetchMedia();
+  //recibimos el parametrp de a categoria
+  Future<List<Media>> fetchMedia(String category);
 }
 //obtiene las peliculas
 class MovieProvider extends MediaProvider{
   //variable para usar el httphandler
   HttpHandler _client = HttpHandler.get();
   @override
-  Future<List<Media>> fetchMedia(){
-    return _client.fetchMovies();
+  //enviamos la categoria de pelicula que queremos ver
+  Future<List<Media>> fetchMedia(String category){
+    return _client.fetchMovies(category: category);
   }
 }
 //obtiene los programas de television
 class ShowProvider extends MediaProvider{
   HttpHandler _client = HttpHandler.get();
   @override
-  Future<List<Media>> fetchMedia(){
-    return _client.fetchShow();
+  Future<List<Media>> fetchMedia(String category){
+    return _client.fetchShow(category: category);
   }
 }
 

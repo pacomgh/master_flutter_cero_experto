@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movieapp/common/HttpHandler.dart';
+import 'package:movieapp/media_detail.dart';
 import 'package:movieapp/model/Media.dart';
 import 'package:movieapp/media_list_item.dart';
 import 'package:movieapp/common/MediaProvider.dart';
@@ -42,7 +43,18 @@ class _MediaListState extends State<MediaList> {
         //cantidad de elementos que tiene
         itemCount: _media.length,
         itemBuilder: (BuildContext context, int index){
-          return new MediaListItem(_media[index]);
+          //este flat button nos sirve para ver los detalles de la pelicula
+          return FlatButton(
+            child: new MediaListItem(_media[index]),
+            padding: const EdgeInsets.all(1),
+            onPressed: (){
+              Navigator.push(context,
+                  new MaterialPageRoute(builder: (context){
+                    return new MediaDetail(_media[index]);
+                  })
+              );
+            },
+          );
         }
       ),
     );

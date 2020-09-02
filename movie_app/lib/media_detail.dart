@@ -31,7 +31,45 @@ class MediaDetail extends StatelessWidget {
             child: new Container(
               color: Colors.black.withOpacity(0.5),
             ),
-          )
+          ),
+          //realizar scroll en el widget
+          new SingleChildScrollView(
+            child: new Container(//colocamos la imagen
+              margin: const EdgeInsets.all(20),
+              child: new Column(//para apilar de arriba a abajo
+                children: <Widget>[
+                  new Container(
+                    alignment: Alignment.center,//centramos al centro
+                    child: new Container(//definimos el tamaño del contenedor de la imagen
+                      width: 390,
+                      height: 390,
+                   ),
+                    decoration: new BoxDecoration(
+                      //para el tipo de imagen
+                      borderRadius: new BorderRadius.circular(10.0),
+                      //para mostrar la imagen
+                      image: new DecorationImage(
+                          image: new NetworkImage(
+                            media.getPosterUrl()
+                          )
+                      ),
+                      //hacemos un sombreado con box shadow
+                      boxShadow: [
+                        new BoxShadow(
+                          color: Colors.black,
+                          //radio de difuminado
+                          blurRadius: 20.0,
+                            //desplazamiento
+                          offset: new Offset(0.0, 10)
+                        )
+                      ]
+                    ),
+                  ),
+                  
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );

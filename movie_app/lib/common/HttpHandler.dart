@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:movieapp/common/Constants.dart';
 import 'package:movieapp/model/Media.dart';
 import 'package:movieapp/common/MediaProvider.dart';
+import 'package:movieapp/model/Cast.dart';
 
 class HttpHandler{
   //variable para poder usar http handler desde otra clase
@@ -54,6 +55,36 @@ class HttpHandler{
     });
     return getJson(uri).then((data) =>
         data['results'].map<Media>((item) => new Media(item, MediaType.show)).toList()
+    );
+  }
+
+  Future<List<Media>> fetchCreditMovies(int mediaId) async{
+    //obtenemos la el tipo de media para obtener los creditos
+    var uri = new Uri.http(_baseUrl, "3/movie/$mediaId/credits",{//define el url
+      //api generada
+      'api_key': api_key,
+      //pagina
+      'page': '1',
+      'language': _language
+    });
+    //regresamo un json de tipo cast
+    return getJson(uri).then((data) =>
+        data['cast'].map<Cast>((item) => new Cast(item, MediaType.movie)).toList()
+    );
+  }
+
+  Future<List<Media>> fetchCreditShow(int mediaId) async{
+    //obtenemos la el tipo de media para obtener los creditos
+    var uri = new Uri.http(_baseUrl, "3/tv/$mediaId/credits",{//define el url
+      //api generada
+      'api_key': api_key,
+      //pagina
+      'page': '1',
+      'language': _language
+    });
+    //regresamo un json de tipo cast
+    return getJson(uri).then((data) =>
+        data['cast'].map<Cast>((item) => new Cast(item, MediaType.show)).toList()
     );
   }
 

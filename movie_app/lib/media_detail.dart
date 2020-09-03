@@ -65,7 +65,57 @@ class MediaDetail extends StatelessWidget {
                       ]
                     ),
                   ),
-                  
+                  //permite definir tamaño especifico para este widget
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                  new Container(//lo usamos para definir el margen en las orillas
+                    margin: const EdgeInsets.symmetric(vertical: 5.0,),
+                    //ocupa todo el espacio habilitado en el box
+                    child: new Row(
+                        children: <Widget>[
+                          new Expanded(
+                            child: new Text(
+                              media.title,
+                              //el overflow lo escondemos
+                              overflow: TextOverflow.fade,
+                              //limita el texto a maximo solo una linea
+                              maxLines: 1,
+                              //definimos los estilos para el texto
+                              style: new TextStyle(
+                                color: Colors.white,
+                                fontSize: 30.0,
+                                fontFamily: 'Arvo'
+                              ),
+                            ),
+                          ),
+                          new Text(
+                            //interpolacion para concatenar
+                            '${media.voteAverage.toString()}/10',
+                            style: new TextStyle(
+                              color: Colors.white,
+                              fontSize: 20.0,
+                              fontFamily: 'Arvo'
+                            ),
+                          )
+                        ],
+                    ),
+                  ),
+                  new Column(
+                    children: <Widget>[
+                      new Text(
+                        media.overview,
+                        //coloca ... si la descripcion es muy larga
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 3,
+                        style: new TextStyle(
+                          color: Colors.white,
+                          fontSize: 17.0,
+                          fontFamily: 'Arvo'
+                        ),
+                      )
+                    ],
+                  )
                 ],
               ),
             ),

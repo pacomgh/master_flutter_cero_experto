@@ -58,7 +58,7 @@ class HttpHandler{
     );
   }
 
-  Future<List<Media>> fetchCreditMovies(int mediaId) async{
+  Future<List<Cast>> fetchCreditMovies(int mediaId) async{
     //obtenemos la el tipo de media para obtener los creditos
     var uri = new Uri.http(_baseUrl, "3/movie/$mediaId/credits",{//define el url
       //api generada
@@ -73,7 +73,7 @@ class HttpHandler{
     );
   }
 
-  Future<List<Media>> fetchCreditShow(int mediaId) async{
+  Future<List<Cast>> fetchCreditShow(int mediaId) async{
     //obtenemos la el tipo de media para obtener los creditos
     var uri = new Uri.http(_baseUrl, "3/tv/$mediaId/credits",{//define el url
       //api generada

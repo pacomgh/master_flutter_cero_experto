@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:movieapp/common/MediaProvider.dart';
 import 'package:movieapp/model/Media.dart';
 import 'dart:ui' as ui;
+import 'package:movieapp/cast_scroller.dart';
 
 class MediaDetail extends StatelessWidget {
   final Media media;
+  final MediaProvider provider;
   //recibimos el objeto media para obtener la imagen
-  MediaDetail(this.media);
+  MediaDetail(this.media, this.provider);
 
   @override
   Widget build(BuildContext context) {
@@ -115,7 +118,8 @@ class MediaDetail extends StatelessWidget {
                         ),
                       )
                     ],
-                  )
+                  ),
+                  CastController(provider, media.id)
                 ],
               ),
             ),

@@ -50,7 +50,7 @@ class _MediaListState extends State<MediaList> {
             onPressed: (){
               Navigator.push(context,
                   new MaterialPageRoute(builder: (context){
-                    return new MediaDetail(_media[index]);
+                    return new MediaDetail(_media[index], widget.provider);
                   })
               );
             },

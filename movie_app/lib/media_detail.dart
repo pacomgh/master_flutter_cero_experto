@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:movieapp/common/MediaProvider.dart';
-import 'package:movieapp/model/Media.dart';
 import 'dart:ui' as ui;
 import 'package:movieapp/cast_scroller.dart';
+
+import 'model/Media.dart';
 
 class MediaDetail extends StatelessWidget {
   final Media media;

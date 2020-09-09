@@ -2,18 +2,18 @@ import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:movieapp/common/Constants.dart';
-import 'package:movieapp/model/Media.dart';
 import 'package:movieapp/common/MediaProvider.dart';
 import 'package:movieapp/model/Cast.dart';
+import 'package:movieapp/model/Media.dart';
 
-class HttpHandler{
+class ApiProvider{
   //variable para poder usar http handler desde otra clase
-  static final _httpHandler = new HttpHandler();
+  static final _apiProvider = new ApiProvider();
   final String _baseUrl = "api.themoviedb.org";
   final String _language = "es-ES";
   //metodo que retorna el objeto de httphandler
-  static HttpHandler get(){
-    return _httpHandler;
+  static ApiProvider get(){
+    return _apiProvider;
   }
   //si no sabemos que devuelve usamos dynamic, dynamic = tipo generico
   //obtenemos el json de la respeusta a la api
@@ -59,6 +59,7 @@ class HttpHandler{
   }
 
   Future<List<Cast>> fetchCreditMovies(int mediaId) async{
+    print('${mediaId.toString()} lectura en api tmbd para movies');
     //obtenemos la el tipo de media para obtener los creditos
     var uri = new Uri.http(_baseUrl, "3/movie/$mediaId/credits",{//define el url
       //api generada
@@ -69,11 +70,12 @@ class HttpHandler{
     });
     //regresamo un json de tipo cast
     return getJson(uri).then((data) =>
-        data['cast'].map<Cast>((item) => new Cast(item, MediaType.movie)).toList()
+        data['cast'].map<Cast>((item) => new Cast(item, MediaType.movie, mediaId)).toList()
     );
   }
 
   Future<List<Cast>> fetchCreditShow(int mediaId) async{
+    print('${mediaId.toString()} lectura en api tmbd para shows');
     //obtenemos la el tipo de media para obtener los creditos
     var uri = new Uri.http(_baseUrl, "3/tv/$mediaId/credits",{//define el url
       //api generada
@@ -84,7 +86,7 @@ class HttpHandler{
     });
     //regresamo un json de tipo cast
     return getJson(uri).then((data) =>
-        data['cast'].map<Cast>((item) => new Cast(item, MediaType.show)).toList()
+        data['cast'].map<Cast>((item) => new Cast(item, MediaType.show, mediaId)).toList()
     );
   }
 

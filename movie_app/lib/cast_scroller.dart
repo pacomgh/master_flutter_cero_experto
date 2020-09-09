@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movieapp/common/MediaProvider.dart';
-import 'package:movieapp/model/Cast.dart';
+
+import 'model/Cast.dart';
 
 
 class CastController extends StatefulWidget {

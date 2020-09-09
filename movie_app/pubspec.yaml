@@ -29,6 +29,10 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.3
   http: ^0.12.2
+  #para usar bases de datos sqlite, si solo ponemos ':' obtiene la ultima version
+  sqflite:
+  #para acceder a los archivos y rutas locales
+  path_provider: ^1.6.14
 
 dev_dependencies:
   flutter_test:

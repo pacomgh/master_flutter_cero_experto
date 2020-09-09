@@ -1,9 +1,12 @@
 import 'dart:async';
-import 'package:movieapp/model/Media.dart';
-import 'package:movieapp/common/HttpHandler.dart';
 import 'package:movieapp/model/Cast.dart';
+import 'package:movieapp/model/Media.dart';
+import 'package:movieapp/resources/api_provider.dart';
+import 'package:movieapp/resources/repository.dart';
 
 abstract class MediaProvider{
+  //acceso a repository
+  Repository _repository = Repository.get();
   //recibimos el parametrp de a categoria
   Future<List<Media>> fetchMedia(String category);
   //future representa un objeto parcial
@@ -12,7 +15,7 @@ abstract class MediaProvider{
 //obtiene las peliculas
 class MovieProvider extends MediaProvider{
   //variable para usar el httphandler
-  HttpHandler _client = HttpHandler.get();
+  ApiProvider _client = ApiProvider.get();
   @override
   //enviamos la categoria de pelicula que queremos ver
   Future<List<Media>> fetchMedia(String category){
@@ -21,13 +24,13 @@ class MovieProvider extends MediaProvider{
 
   @override
   Future<List<Cast>> fetchCast(int mediaId) {
-    return _client.fetchCreditMovies(mediaId);
+    return _repository.fetchCastMovies(mediaId);
   }
   
 }
 //obtiene los programas de television
 class ShowProvider extends MediaProvider{
-  HttpHandler _client = HttpHandler.get();
+  ApiProvider _client = ApiProvider.get();
   @override
   Future<List<Media>> fetchMedia(String category){
     return _client.fetchShow(category: category);
@@ -35,7 +38,7 @@ class ShowProvider extends MediaProvider{
 
   @override
   Future<List<Cast>> fetchCast(int mediaId) {
-    return _client.fetchCreditShow(mediaId);
+    return _repository.fetchCastShows(mediaId);
   }
 }
 

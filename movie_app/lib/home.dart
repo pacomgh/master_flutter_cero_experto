@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movieapp/media_list.dart';
-import 'package:movieapp/common/HttpHandler.dart';
+import 'file:///E:/AndroidStudioProjects/flutter/master_flutter_cero_experto/movie_app/lib/resources/api_provider.dart';
 import 'package:movieapp/common/MediaProvider.dart';
 
 class Home extends StatefulWidget {

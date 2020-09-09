@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:movieapp/model/Media.dart';
+
+import 'model/Media.dart';
 
 class MediaListItem extends StatelessWidget {
   final Media media;

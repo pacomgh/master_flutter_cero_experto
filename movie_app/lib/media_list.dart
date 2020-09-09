@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:movieapp/common/HttpHandler.dart';
 import 'package:movieapp/media_detail.dart';
-import 'package:movieapp/model/Media.dart';
 import 'package:movieapp/media_list_item.dart';
 import 'package:movieapp/common/MediaProvider.dart';
+
+import 'model/Media.dart';
 
 class MediaList extends StatefulWidget {
   final MediaProvider provider;

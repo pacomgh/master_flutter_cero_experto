@@ -11,7 +11,7 @@ class DBProvider{
   //al acceder a base de datos locales se hacen llamadas asincronas
   //no se puede hacer llamada asincrona en el constructor
   DBProvider(){
-    //siempre se llama al haecer la instancia de la clase
+    //siempre se llama en el constructor al instancias la clase
     init();
   }
 
@@ -19,9 +19,10 @@ class DBProvider{
     return _dbProvider;
   }
 
-  //metodo init
+  //metodo init, se hace aparte porque en un constructor no permite async
   void init() async{
-    //definimos el directorio
+    //definimos el directorio, llamando a esta funcion retornamos el directorio
+    //donde almacenamos la bd de manera segura
     Directory documentDirectory = await getApplicationDocumentsDirectory();
     //path final donde guardamos la base de datos
     //join sirve para poder concatenar diferentes paths
@@ -37,7 +38,7 @@ class DBProvider{
             id INTEGER PRIMARY KEY,    
             name TEXT,
             profile_path TEXT,
-            media_id INTEGER      
+            media_Id INTEGER      
           )        
         """);
 
@@ -50,10 +51,11 @@ class DBProvider{
     var maps = await db.query(
       "Casts",//tabla a consultar
       columns:null,//las columnas a consultar, null=todas
-      where: "media_Id = ?",// ?->enia como el argumento lo que esta dentro del whereArgs
-      whereArgs: [mediaId]
+      where: "media_Id = ?",// ?->envia como el argumento lo que esta dentro del whereArgs
+      whereArgs: [mediaId]//hacerlo asi es mas seguro, podemos evitar sqlinyection
     );
     if(maps.length > 0){
+      //convertimos los datos de la base de datos al modelos de cast
       return maps.map<Cast>((item) => new Cast.fromDb(item)).toList();
     }
     return null;

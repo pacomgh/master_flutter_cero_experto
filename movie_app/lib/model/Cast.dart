@@ -11,7 +11,7 @@ class Cast{
   //obtiene la imagen de tamaño medio de la foto del actor
   String getCastUrl() => getMediumPictureUrl(profilePath);
 
-  factory Cast(Map jsonMap, MediaType mediaType, mediaId){
+  factory Cast(Map jsonMap, MediaType mediaType, int mediaId){
     try{
       return new Cast.deserialize(jsonMap, mediaType, mediaId);
     }catch (ex){
@@ -42,7 +42,7 @@ class Cast{
     return <String, dynamic>{
       "id":id,
       "name": name,
-      "media_id": mediaId.toInt,
+      "media_Id": mediaId.toInt(),
       "profile_path": profilePath
     };
   }

@@ -5,8 +5,10 @@ import 'package:movieapp/common/Constants.dart';
 import 'package:movieapp/common/MediaProvider.dart';
 import 'package:movieapp/model/Cast.dart';
 import 'package:movieapp/model/Media.dart';
+import 'package:movieapp/resources/resource_provider.dart';
 
-class ApiProvider{
+//implementamos interface resourceProvider
+class ApiProvider implements ResourceProvider{
   //variable para poder usar http handler desde otra clase
   static final _apiProvider = new ApiProvider();
   final String _baseUrl = "api.themoviedb.org";
@@ -58,10 +60,12 @@ class ApiProvider{
     );
   }
 
-  Future<List<Cast>> fetchCreditMovies(int mediaId) async{
+  Future<List<Cast>> fetchCasts(int mediaId, MediaType mediaType) async{
     print('${mediaId.toString()} lectura en api tmbd para movies');
-    //obtenemos la el tipo de media para obtener los creditos
-    var uri = new Uri.http(_baseUrl, "3/movie/$mediaId/credits",{//define el url
+    //identifica cual es el endpoint, si movie o tv para usarlo en la uri
+    final String endpoint = (mediaType == MediaType.movie ? "movie":"tv");
+    //obtenemos el tipo de media para obtener el endpoint y el media id para las cast
+    var uri = new Uri.http(_baseUrl, "3/$endpoint/$mediaId/credits",{//define el url
       //api generada
       'api_key': api_key,
       //pagina
@@ -73,23 +77,6 @@ class ApiProvider{
         data['cast'].map<Cast>((item) => new Cast(item, MediaType.movie, mediaId)).toList()
     );
   }
-
-  Future<List<Cast>> fetchCreditShow(int mediaId) async{
-    print('${mediaId.toString()} lectura en api tmbd para shows');
-    //obtenemos la el tipo de media para obtener los creditos
-    var uri = new Uri.http(_baseUrl, "3/tv/$mediaId/credits",{//define el url
-      //api generada
-      'api_key': api_key,
-      //pagina
-      'page': '1',
-      'language': _language
-    });
-    //regresamo un json de tipo cast
-    return getJson(uri).then((data) =>
-        data['cast'].map<Cast>((item) => new Cast(item, MediaType.show, mediaId)).toList()
-    );
-  }
-
   //
   /*Future<String> tetchMovies(){
     //usasmos uri.http para obtener los datos de la url del api
@@ -107,3 +94,5 @@ class ApiProvider{
     return getJson(uri).then((data) => data.toString());
   }*/
 }
+//esta variable sirve para usarla en archivos externos, debemos hacerlo fuera de la clase
+final ApiProvider apiProvider = ApiProvider();

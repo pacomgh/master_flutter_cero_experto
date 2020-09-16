@@ -1,10 +1,14 @@
+import 'package:movieapp/common/MediaProvider.dart';
 import 'package:movieapp/model/Cast.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';//para el manejo de rutas
 import 'package:path/path.dart';//para el manejo de archivos
 import 'dart:io';//para el manejo de archivos
+import 'package:movieapp/resources/resource_provider.dart';
 
-class DBProvider{
+//implementamos resource provider
+//para implementar dos interfaces solo ponemos ","
+class DBProvider implements ResourceProvider, CacheProvider{
   static final DBProvider _dbProvider = new DBProvider();
   //instancia de sqlite para conexion con db
   Database db;
@@ -46,7 +50,7 @@ class DBProvider{
     );
   }
   //traemos todos los actores con este metodo, lo maejamos lo mas aislado posible
-  Future<List<Cast>> fetchCasts(int mediaId) async{
+  Future<List<Cast>> fetchCasts(int mediaId, MediaType mediaType) async{
     print('${mediaId.toString()} lectura de base de datos local');
     var maps = await db.query(
       "Casts",//tabla a consultar
@@ -77,3 +81,5 @@ class DBProvider{
     );
   }
 }
+//creamos una variable para usarla en archivos externos, debemos hacerlo fuera de la clase
+final DBProvider dbProvider = new DBProvider();

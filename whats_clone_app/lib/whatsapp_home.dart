@@ -24,7 +24,7 @@ class _WhatsAppHomeState extends State<WhatsAppHome> with SingleTickerProviderSt
         title: new Text("Flutter chat"),
         bottom: new TabBar(
           controller: _tabController,
-          tabs: [
+          tabs: <Widget>[
             new Tab(icon: new Icon(Icons.camera_alt),),
             new Tab(text: "CHATS",),
             new Tab(text: "ESTADOS"),

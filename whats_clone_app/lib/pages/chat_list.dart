@@ -23,6 +23,29 @@ class _ChatListState extends State<ChatList> {
               //messageData[0].atributo, accede al atributo en la posicion que queremos
               backgroundImage: NetworkImage(messageData[i].imageUrl),
             ),
+            title: new Row(
+              //esta propiedad permite dar espacio entre los dos elementos
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                new Text(
+                  messageData[i].name,
+                  style: new TextStyle(fontWeight: FontWeight.bold),
+                ),
+                new Text(
+                  messageData[i].time,
+                  style: new TextStyle(color: Colors.grey, fontSize: 14.0),
+                ),
+              ],
+            ),
+            //permite agregar un subtitulo en el row
+            subtitle: new Container(
+              padding: const EdgeInsets.only(top: 5.0),//only da padding en una sola direccion
+              child: new Text(
+                messageData[i].message,
+                style: new TextStyle(color: Colors.grey, fontSize: 15.0),
+
+              ),
+            ),
           ),
         ],
       )

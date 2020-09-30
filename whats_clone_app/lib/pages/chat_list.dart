@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:whatscloneapp/models/chat_model.dart';
+import 'package:whatscloneapp/pages/chat_screen.dart';
 
 class ChatList extends StatefulWidget {
   @override
@@ -46,6 +47,15 @@ class _ChatListState extends State<ChatList> {
 
               ),
             ),
+            //callback para hacer la navegacion
+            onTap: (){
+              //declaramos el route para el cambio de pagina
+              var route = new MaterialPageRoute(
+                //indicamos cual es la pagina que vamos a utilizar
+                builder: (BuildContext context) => new ChatScreen(name: messageData[i].name)
+              );
+              Navigator.of(context).push(route);
+            },
           ),
         ],
       )
